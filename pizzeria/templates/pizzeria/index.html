@@ -1,0 +1,13 @@
+<h1>Tony's pizzeria</h1>
+<h3>Menu</h3>
+{% if pizza_list %}
+<ul>
+    {% for element in pizza_list %}
+    <li> {{ element.name }} ${{ element.price }} </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No pizza</p>
+{% endif %}
+
+<a href="/order">Order </a>
