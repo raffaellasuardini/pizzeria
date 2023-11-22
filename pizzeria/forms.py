@@ -1,9 +1,14 @@
-from django import forms
-from .models import Pizza
+from django.forms import ModelForm
+from .models import OrderItem, Customer
 
-class Customer(forms.Form):
-    customer_name = forms.CharField(label="Your name", required=True, max_length=100)
-    address = forms.CharField(label="Your address", required=True,max_length=100)
 
-class Pizza(forms.Form):
-    name = forms.ModelChoiceField(queryset=Pizza.objects.all())
+class CustomerForm(ModelForm):
+    class Meta:
+        model = Customer
+        fields = ['name', 'address']
+
+
+class OrderItemForm(ModelForm):
+    class Meta:
+        model = OrderItem
+        exclude = ['order']
