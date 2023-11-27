@@ -1,0 +1,14 @@
+<h1> Order for {{ pizza }} </h1>
+
+<h3> Do you want an extra topping?</h3>
+
+<form action="{%url 'topping' pizza.id %}" method="post">
+{% csrf_token %}
+<p>
+{% for topping in topping_list%}
+    <input type="checkbox" name='topping' value={{topping.id}} >{{ topping.name }} +${{ topping.price }}</input> <br>
+{% endfor %}
+</p>
+<a href="/pizzeria/orders"> Back </a>
+<button type="submit"> Add to cart</button>
+</form>
