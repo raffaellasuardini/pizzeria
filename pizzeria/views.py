@@ -65,6 +65,17 @@ def get_cart(request):
 
     return render(request, template_name='pizzeria/cart.html', context={'cart_list': cart_list, 'price': total_price})
 
+def delete_from_order(request, index):
+    if 'current_order' in request.session:
+        order = request.session['current_order']
+        try:
+            deleted_element = order.pop(index)
+            request.session['current_order'] = order
+            print(f"Deleted element at index {index} from the order: {deleted_element}")
+        except IndexError:
+            print(f"No element found at index {index} in the order.")
+
+    return HttpResponseRedirect("/pizzeria/cart")
 
 def get_customer(request):
     if request.method == 'POST':
