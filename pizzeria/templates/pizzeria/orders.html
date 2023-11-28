@@ -2,9 +2,9 @@
 
 <h5>Menu</h5>
 <ul>
-
-
 {%for pizza in pizza_list %}
    <li> <a href="{% url 'topping' pizza.id %}"> {{ pizza.name }} {{pizza.price}} </a>  </li>
 {% endfor %}
 </ul>
+
+<a href="{% url 'cart' %}">Cart 🛒</a>

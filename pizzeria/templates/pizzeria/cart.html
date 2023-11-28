@@ -1,0 +1,14 @@
+<h1>Cart </h1>
+{% for item in cart_list %}
+{% if item.toppings %}
+<li> {{item.pizza}} {% for topping in item.toppings %} + {{topping}} {% endfor %} </li>
+{%else%}
+<li> {{item.pizza}}</li>
+
+{%endif%}
+
+
+
+{%endfor%}
+
+<p>Total ${{price }}</p>

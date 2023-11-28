@@ -37,6 +37,34 @@ def get_topping(request, pizza_id):
         context = {'topping_list': topping_list, 'pizza': current_pizza}
     return render(request, template_name='pizzeria/topping.html', context=context)
 
+#[{'pizza_id': 1, 'toppings': ['1']}, {'pizza_id': 1, 'toppings': ['2']}, {'pizza_id': 1, 'toppings': ['3']}, {'pizza_id': 1, 'toppings': []}, {'pizza_id': 2, 'toppings': ['2', '1', '3']}]
+def get_cart(request):
+    items_chosen = request.session.get('current_order', [])
+
+    cart_list = []
+    total_price = 0
+
+    for element in items_chosen:
+        pizza_choice = Pizza.objects.get(pk=element.get('pizza_id'))
+        toppings_ids = element.get('toppings', [])
+
+        if toppings_ids:
+            toppings = Topping.objects.filter(pk__in=toppings_ids)
+            toppings_list = [topping.name for topping in toppings]
+            toppings_price_list = [topping.price for topping in toppings]
+        else:
+            toppings_list = []
+            toppings_price_list = []
+        json = {
+            'pizza': pizza_choice.name,
+            'toppings':toppings_list,
+        }
+
+        total_price += int(pizza_choice.price) + sum(toppings_price_list)
+        cart_list.append(json)
+
+    return render(request, template_name='pizzeria/cart.html', context={'cart_list': cart_list, 'price': total_price})
+
 
 def get_customer(request):
     if request.method == 'POST':
