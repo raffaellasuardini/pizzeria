@@ -55,12 +55,16 @@ def get_cart(request):
         else:
             toppings_list = []
             toppings_price_list = []
+
+        pizza_toppings_price = pizza_choice.price + sum(toppings_price_list)
+
         json = {
             'pizza': pizza_choice.name,
             'toppings':toppings_list,
+            'price': pizza_toppings_price
         }
 
-        total_price += int(pizza_choice.price) + sum(toppings_price_list)
+        total_price += pizza_toppings_price
         cart_list.append(json)
 
     return render(request, template_name='pizzeria/cart.html', context={'cart_list': cart_list, 'price': total_price})

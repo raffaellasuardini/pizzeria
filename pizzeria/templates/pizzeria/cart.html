@@ -1,7 +1,7 @@
 <h1>Cart </h1>
 {% for item in cart_list %}
 {% if item.toppings %}
-<li> <a href="{% url 'delete_cart' forloop.counter0 %}">🗑️</a> {{item.pizza}} {% for topping in item.toppings %} + {{topping}} {% endfor %} </li>
+<li> <a href="{% url 'delete_cart' forloop.counter0 %}">🗑️</a> {{item.pizza}} {% for topping in item.toppings %} + {{topping}} {% endfor %} ({{item.price}}) </li>
 {%else%}
 <li> <a href="{% url 'delete_cart' forloop.counter0 %}">🗑️</a> {{item.pizza}}</li>
 
@@ -11,3 +11,5 @@
 
 
 <p>Total ${{price }}</p>
+
+<a href="" >Confirm</a>
